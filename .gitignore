@@ -8,3 +8,5 @@ sed.exe.stackdump
 Elephant Platformer Game/.vs/
 *.csproj
 .gitignore
+*.orig
+*.meta
