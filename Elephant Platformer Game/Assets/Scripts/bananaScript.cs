@@ -22,6 +22,7 @@ public class bananaScript : MonoBehaviour {
         {
             monkey.SendMessage("Miss");
             this.gameObject.SetActive(false);
+            Instantiate(Resources.Load("BananaPeel"), transform.position, Quaternion.identity);
         }
         else if (col.gameObject.tag == "Player")
         {
