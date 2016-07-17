@@ -33,7 +33,7 @@ public class playerScript : MonoBehaviour {
     void FixedUpdate()
     {
         Vector2 temp = GetComponent<Rigidbody2D>().velocity;
-        temp.x = movement.x;
+        temp.x = movement.x; 
         GetComponent<Rigidbody2D>().velocity = temp;
 
         //GetComponent<Rigidbody2D>().addForce(jumpingForce);
