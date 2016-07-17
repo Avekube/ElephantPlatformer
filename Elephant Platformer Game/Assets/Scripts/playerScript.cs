@@ -24,23 +24,17 @@ public class playerScript : MonoBehaviour {
     public float speed;
     public float jumpSpeed;
     public int maxJumps;
-    public int health;
-    public float verticalForce;
-    private float reverseGravity;
-    private float distanceToGround;
+    float groundedDelay;
     private CharacterController controller;
 	// Use this for initialization
 	void Start ()
     {
 		health = 3;
-        speed = 10.0f;
-        jumpSpeed = 20.0f;
+        speed = 5.0f;
+        jumpSpeed = 5.0f;
         maxJumps = 2;
-        airTime = 2.0f;
-        verticalForce = 0;
-        reverseGravity = airTime * Physics2D.gravity.y;
-        distanceToGround = GetComponent<Collider2D>().bounds.extents.y;
-	}
+        groundedDelay = 0f;
+ 	}
 
     // Update is called once per frame
     void Update()
@@ -63,19 +57,12 @@ public class playerScript : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space) && maxJumps > 0)
         {
             jump();
+            groundedDelay = Time.time + .5f;
         }
 
-        if (isGrounded())
+        else if ( Time.time > groundedDelay && isGrounded())
         {
             maxJumps = 2;
-            verticalForce = 0;
-            reverseGravity = airTime * Physics2D.gravity.y;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && verticalForce != 0)
-        {
-            reverseGravity -= Time.deltaTime;
-            verticalForce += reverseGravity * Time.deltaTime;
         }
 	}
 	
@@ -84,10 +71,6 @@ public class playerScript : MonoBehaviour {
         Vector2 horziontalVector = GetComponent<Rigidbody2D>().velocity;
         horziontalVector.x = movement.x;
         GetComponent<Rigidbody2D>().velocity = horziontalVector;
-
-        Vector2 verticalForceVector = GetComponent<Rigidbody2D>().velocity;
-        verticalForceVector.y = verticalForce;
-        GetComponent<Rigidbody2D>().AddForce(verticalForceVector);
 	}
 
     void Die()
@@ -111,13 +94,16 @@ public class playerScript : MonoBehaviour {
     private void jump()
     {
         maxJumps -= 1;
-        verticalForce = jumpSpeed;
+        Vector2 verticalForceVector = GetComponent<Rigidbody2D>().velocity;
+        verticalForceVector.y = jumpSpeed;
+        GetComponent<Rigidbody2D>().velocity = verticalForceVector;
     }
 
     private bool isGrounded()
     {
         Vector2 origin = GetComponent<BoxCollider2D>().bounds.center;
-        bool temp = Physics2D.Raycast(origin, -Vector2.up, distanceToGround + 0.1f);
+        origin.y -= GetComponent<BoxCollider2D>().bounds.extents.y + 0.01f;
+        bool temp = Physics2D.Raycast(origin, -Vector2.up, 0.1f);
         return temp;
     }
 }
