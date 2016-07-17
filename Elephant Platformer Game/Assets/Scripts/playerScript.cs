@@ -3,6 +3,22 @@ using System.Collections;
 
 public class playerScript : MonoBehaviour {
 
+    public enum physicalState
+    {
+        Idle,       //no input
+        Walking,
+        Jumping,
+        Falling,
+        Hovering,
+        Dead,
+    }
+
+    public enum actionState
+    {
+        Idle,
+        TrunkingIn,
+    }
+
     Vector2 movement;
     public float speed;
     public float jumpSpeed;
@@ -43,17 +59,16 @@ public class playerScript : MonoBehaviour {
         }
         movement.x *= speed;
 
+        if (Input.GetKeyDown(KeyCode.Space) && maxJumps > 0)
+        {
+            jump();
+        }
+
         if (isGrounded())
         {
             maxJumps = 2;
             verticalForce = 0;
             reverseGravity = airTime * Physics2D.gravity.y;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && maxJumps > 0)
-        {
-            maxJumps -= 1;
-            verticalForce = jumpSpeed;
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && verticalForce != 0)
@@ -73,6 +88,13 @@ public class playerScript : MonoBehaviour {
         verticalForceVector.y = verticalForce;
         GetComponent<Rigidbody2D>().AddForce(verticalForceVector);
 
+    }
+
+    //sets verticalForce for jumps. Does not actually affect movement itself.
+    private void jump()
+    {
+        maxJumps -= 1;
+        verticalForce = jumpSpeed;
     }
 
     private bool isGrounded()
