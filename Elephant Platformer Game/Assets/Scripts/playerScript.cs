@@ -3,19 +3,36 @@ using System.Collections;
 
 public class playerScript : MonoBehaviour {
 
+    public enum physicalState
+    {
+        Idle,       //no input
+        Walking,
+        Jumping,
+        Falling,
+        Hovering,
+        Dead,
+    }
+
+    public enum actionState
+    {
+        Idle,
+        TrunkingIn,
+    }
+
     Vector2 movement;
+	public int health;
     public float speed;
     public float jumpSpeed;
     public int maxJumps;
-    public float airTime;
+    public int health;
     public float verticalForce;
     private float reverseGravity;
     private float distanceToGround;
     private CharacterController controller;
-
 	// Use this for initialization
 	void Start ()
     {
+		health = 3;
         speed = 10.0f;
         jumpSpeed = 20.0f;
         maxJumps = 2;
@@ -43,17 +60,16 @@ public class playerScript : MonoBehaviour {
         }
         movement.x *= speed;
 
+        if (Input.GetKeyDown(KeyCode.Space) && maxJumps > 0)
+        {
+            jump();
+        }
+
         if (isGrounded())
         {
             maxJumps = 2;
             verticalForce = 0;
             reverseGravity = airTime * Physics2D.gravity.y;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && maxJumps > 0)
-        {
-            maxJumps -= 1;
-            verticalForce = jumpSpeed;
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && verticalForce != 0)
@@ -62,8 +78,8 @@ public class playerScript : MonoBehaviour {
             verticalForce += reverseGravity * Time.deltaTime;
         }
 	}
-
-    void FixedUpdate()
+	
+	void FixedUpdate()
     {
         Vector2 horziontalVector = GetComponent<Rigidbody2D>().velocity;
         horziontalVector.x = movement.x;
@@ -72,7 +88,30 @@ public class playerScript : MonoBehaviour {
         Vector2 verticalForceVector = GetComponent<Rigidbody2D>().velocity;
         verticalForceVector.y = verticalForce;
         GetComponent<Rigidbody2D>().AddForce(verticalForceVector);
+	}
 
+    void Die()
+    {
+        this.gameObject.SetActive(false);
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Enemy")
+            GetHit();
+    }
+
+    void GetHit()
+    {
+        health--;
+        if (health == 0)
+            Die();
+    }
+    //sets verticalForce for jumps. Does not actually affect movement itself.
+    private void jump()
+    {
+        maxJumps -= 1;
+        verticalForce = jumpSpeed;
     }
 
     private bool isGrounded()
