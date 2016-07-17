@@ -24,12 +24,11 @@ public class playerScript : MonoBehaviour {
     public float speed;
     public float jumpSpeed;
     public int maxJumps;
-    public float airTime;
+    public int health;
     public float verticalForce;
     private float reverseGravity;
     private float distanceToGround;
     private CharacterController controller;
-
 	// Use this for initialization
 	void Start ()
     {
