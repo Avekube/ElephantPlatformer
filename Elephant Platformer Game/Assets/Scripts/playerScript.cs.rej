@@ -1,0 +1,62 @@
+diff a/Elephant Platformer Game/Assets/Scripts/playerScript.cs b/Elephant Platformer Game/Assets/Scripts/playerScript.cs	(rejected hunks)
+@@ -30,43 +30,30 @@
+                 break;
+         }
+         movement.x *= speed;
+-
+-        if (isGrounded())
+-        {
+-            maxJumps = 2;
+-            verticalForce = 0;
+-            reverseGravity = airTime * Physics2D.gravity.y;
+-        }
+-
+-        if (Input.GetKeyDown(KeyCode.Space) && maxJumps > 0)
+-        {
+-            maxJumps -= 1;
+-            verticalForce = jumpSpeed;
+-        }
+-
+-        if (Input.GetKeyDown(KeyCode.Space) && verticalForce != 0)
+-        {
+-            reverseGravity -= Time.deltaTime;
+-            verticalForce += reverseGravity * Time.deltaTime;
+-        }
+ 	}
+ 
+-    void FixedUpdate()
++    void Die()
+     {
+-        Vector2 horziontalVector = GetComponent<Rigidbody2D>().velocity;
+-        horziontalVector.x = movement.x;
+-        GetComponent<Rigidbody2D>().velocity = horziontalVector;
++        this.gameObject.SetActive(false);
++    }
+ 
+-        Vector2 verticalForceVector = GetComponent<Rigidbody2D>().velocity;
+-        verticalForceVector.y = verticalForce;
+-        GetComponent<Rigidbody2D>().AddForce(verticalForceVector);
++    void OnCollisionEnter2D(Collision2D col)
++    {
++        if (col.gameObject.tag == "Enemy")
++            GetHit();
++    }
+ 
++    void GetHit()
++    {
++        health--;
++        if (health == 0)
++            Die();
+     }
+ 
+-    private bool isGrounded()
++    void FixedUpdate()
+     {
+-        Vector2 origin = GetComponent<BoxCollider2D>().bounds.center;
+-        bool temp = Physics2D.Raycast(origin, -Vector2.up, distanceToGround + 0.1f);
+-        return temp;
++        Vector2 velocity = GetComponent<Rigidbody2D>().velocity;
++        velocity.x = movement.x;
++        GetComponent<Rigidbody2D>().velocity = velocity;
+     }
+ }

@@ -1,7 +1,14 @@
+<<<<<<< .merge_file_a11904
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
 Project("{CECB5039-273C-7A3B-67A4-9C2A1D7E33C1}") = "Elephant Platformer Game", "Assembly-CSharp.csproj", "{B894295F-A93D-49E4-2933-AB0497C1ABA3}"
+=======
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elephant Platformer Game.CSharp", "Elephant Platformer Game.CSharp.csproj", "{9DACCB4B-38AD-962F-3486-04C208570D6C}"
+>>>>>>> .merge_file_a05676
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,14 +16,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+<<<<<<< .merge_file_a11904
 		{B894295F-A93D-49E4-2933-AB0497C1ABA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B894295F-A93D-49E4-2933-AB0497C1ABA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B894295F-A93D-49E4-2933-AB0497C1ABA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B894295F-A93D-49E4-2933-AB0497C1ABA3}.Release|Any CPU.Build.0 = Release|Any CPU
+=======
+		{9DACCB4B-38AD-962F-3486-04C208570D6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DACCB4B-38AD-962F-3486-04C208570D6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DACCB4B-38AD-962F-3486-04C208570D6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DACCB4B-38AD-962F-3486-04C208570D6C}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> .merge_file_a05676
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+<<<<<<< .merge_file_a11904
 								GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
@@ -37,4 +52,6 @@ Global
 		$3.scope = text/plain
 	EndGlobalSection
 
+=======
+>>>>>>> .merge_file_a05676
 EndGlobal

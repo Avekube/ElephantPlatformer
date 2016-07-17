@@ -1,3 +1,10 @@
 New Unity Project/Library/
 Elephant Platformer Game/Library/
 Elephant Platformer Game/Temp/
+Elephant Platformer Game/obj/Debug/
+Elephant Platformer Game/Elephant Platformer Game.userprefs
+Elephant Platformer Game/Elephant Platformer Game-csharp.sln
+sed.exe.stackdump
+Elephant Platformer Game/.vs/
+*.csproj
+.gitignore
