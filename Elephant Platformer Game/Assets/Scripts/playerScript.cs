@@ -24,7 +24,7 @@ public class playerScript : MonoBehaviour {
     public float speed;
     public float jumpSpeed;
     public int maxJumps;
-    public int health;
+    public float airTime;
     public float verticalForce;
     private float reverseGravity;
     private float distanceToGround;
