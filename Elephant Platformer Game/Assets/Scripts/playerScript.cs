@@ -20,6 +20,7 @@ public class playerScript : MonoBehaviour {
     }
 
     Vector2 movement;
+	public int health;
     public float speed;
     public float jumpSpeed;
     public int maxJumps;
@@ -32,6 +33,7 @@ public class playerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+		health = 3;
         speed = 10.0f;
         jumpSpeed = 20.0f;
         maxJumps = 2;
@@ -77,8 +79,8 @@ public class playerScript : MonoBehaviour {
             verticalForce += reverseGravity * Time.deltaTime;
         }
 	}
-
-    void FixedUpdate()
+	
+	void FixedUpdate()
     {
         Vector2 horziontalVector = GetComponent<Rigidbody2D>().velocity;
         horziontalVector.x = movement.x;
@@ -87,9 +89,25 @@ public class playerScript : MonoBehaviour {
         Vector2 verticalForceVector = GetComponent<Rigidbody2D>().velocity;
         verticalForceVector.y = verticalForce;
         GetComponent<Rigidbody2D>().AddForce(verticalForceVector);
+	}
 
+    void Die()
+    {
+        this.gameObject.SetActive(false);
     }
 
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Enemy")
+            GetHit();
+    }
+
+    void GetHit()
+    {
+        health--;
+        if (health == 0)
+            Die();
+    }
     //sets verticalForce for jumps. Does not actually affect movement itself.
     private void jump()
     {
