@@ -10,3 +10,4 @@ Elephant Platformer Game/.vs/
 .gitignore
 *.orig
 *.meta
+*.sln
